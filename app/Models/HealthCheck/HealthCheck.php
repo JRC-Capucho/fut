@@ -2,12 +2,12 @@
 
 namespace App\Models\HealthCheck;
 
-use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 
 class HealthCheck
 {
-    public function check(): Response
+    public function check(): JsonResponse
     {
-        return response('health');
+        return response()->json(["health"]);
     }
 }

@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,3 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::controller(HealthCheckController::class)->group(function () {
     Route::get('/', 'check');
 });
+
+Route::controller(UserController::class)
+    ->prefix('user')
+    ->group(function () {
+        Route::post("/", 'store');
+        Route::put("/{id}", 'update');
+    });
