@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Publics\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,4 +23,11 @@ Route::controller(UserController::class)
     ->group(function () {
         Route::post("/", 'store');
         Route::put("/{id}", 'update');
+    });
+
+Route::controller(AuthController::class)
+    ->group(function () {
+
+        Route::post('/login', 'signIn');
+        Route::post('/logout', 'signOut');
     });

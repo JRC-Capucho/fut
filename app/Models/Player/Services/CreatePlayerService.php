@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Models\Player\Service;
+namespace App\Models\Player\Services;
 
 use App\Exceptions\AppError;
 use App\Models\Player\Entities\Player;
-use App\Models\Player\Repositories\PlayerRespository;
+use App\Models\Player\Repositories\PlayerRepository;
 use Illuminate\Http\JsonResponse;
 
 class CreatePlayerService
 {
     public function execute(array $player): JsonResponse
     {
-        $playerRespository = new PlayerRespository();
+        $playerRepository = new PlayerRepository();
 
         $player = Player::create($player);
 
