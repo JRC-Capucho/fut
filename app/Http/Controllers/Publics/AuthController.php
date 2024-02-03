@@ -2,18 +2,14 @@
 
 namespace App\Http\Controllers\Publics;
 
-use App\Http\Requests\LoginUserRequest;
+use App\Http\Requests\Auth\LoginUserRequest;
 use App\Models\Auth\Services\AuthorizationService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
-use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    function __construct()
-    {
-        $this->middleware(['auth:api', 'VerifyToken'], ['except' => []]);
-    }
 
     public function signIn(LoginUserRequest $request): JsonResponse
     {
@@ -23,9 +19,8 @@ class AuthController extends Controller
 
     public function signOut()
     {
-        JWTAuth::invalidate(
-            JWTAuth::parseToken()
-        );
+        Auth::logout();
+
         return response()->json(['message' => 'Deslogado com sucesso']);
     }
 }

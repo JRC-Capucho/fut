@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models\Player\Entities;
+namespace App\Models\Game\Entities;
 
 use App\Models\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Model;
 
-class Player extends Model
+class Game extends Model
 {
     use HasUuid;
 
@@ -14,9 +14,14 @@ class Player extends Model
     public $incrementing = false;
 
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'day',
+        'start',
+        'end',
+        'home_team_scoreboard',
+        'away_team_scoreboard',
+        "winner",
+        'home_team',
+        'away_team',
     ];
 
     protected $hidden = [

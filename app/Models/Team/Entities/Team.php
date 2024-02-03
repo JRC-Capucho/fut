@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models\Player\Entities;
+namespace App\Models\Team\Entities;
 
 use App\Models\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Model;
 
-class Player extends Model
+class Team extends Model
 {
     use HasUuid;
 
@@ -15,8 +15,6 @@ class Player extends Model
 
     protected $fillable = [
         'name',
-        'email',
-        'password',
     ];
 
     protected $hidden = [

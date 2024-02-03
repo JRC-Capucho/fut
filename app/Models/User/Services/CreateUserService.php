@@ -18,7 +18,7 @@ class CreateUserService
 
         if ($emailExists) throw new AppError('Email ja existe', 409);
 
-        $user = User::create($user);
+        $user = $userRespository->create($user);
 
         if (!$user) throw new AppError('Falha no registro', 500);
 

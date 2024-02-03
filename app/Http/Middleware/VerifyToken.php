@@ -3,26 +3,37 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
-class VerifyToken extends BaseMiddleware
+class VerifyToken extends Authenticate
 {
+    protected function unauthenticated($request, array $guards)
+    {
+        throw new HttpResponseException(response()->json(['error' => 'Unauthorized.'], 401));
+    }
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure $next
+     * @return mixed
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle($request, Closure $next, ...$guards)
     {
-        dd("nice");
         try {
-            $this->checkForToken($request);
+            // Tenta autenticar o usuário com o token JWT
+            if (!$user = JWTAuth::parseToken()->authenticate()) {
+                return response()->json(['error' => 'User not found.'], 404);
+            }
+            $request->merge(['user' => $user->id]);
         } catch (JWTException $e) {
-            throw new JWTException("Token nao enviado");
+            // O token é inválido ou expirado
+            return response()->json(['error' => 'Token invalid'], 401);
         }
-        return $next($request);
+
+        // O token é válido e o usuário foi autenticado
+        return $this->authenticate($request, $guards) ?: $next($request);
     }
 }

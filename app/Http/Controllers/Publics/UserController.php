@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Publics;
 
-use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\User\StoreUserRequest;
 use App\Models\User\Services\CreateUserService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;

@@ -11,15 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('matches', function (Blueprint $table) {
+        Schema::create('games', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->date('day');
             $table->time('start', 2);
             $table->time('end', 2);
-            $table->string("scoreboard")->nullable();
-            $table->foreignUuid('winner')->nullable();
-            $table->foreignUuid('home_team');
-            $table->foreignUuid('away_team');
+            $table->unsignedInteger("home_team_scoreboard")->default(0);
+            $table->unsignedInteger("away_team_scoreboard")->default(0);
+            // $table->foreignUuid('winner')->constrained('teams')->nullable();
+            $table->foreignUuid('home_team')->constrained('teams');
+            $table->foreignUuid('away_team')->constrained('teams');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('matches');
+        Schema::dropIfExists('games');
     }
 };

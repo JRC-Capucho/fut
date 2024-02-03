@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('leagues', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
-            $table->foreignUuid('matches');
+            $table->date('start');
+            $table->date('end');
+            $table->foreignUuid('user')->constrained('users');
             $table->timestamps();
         });
     }

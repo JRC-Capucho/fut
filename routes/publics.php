@@ -27,7 +27,6 @@ Route::controller(UserController::class)
 
 Route::controller(AuthController::class)
     ->group(function () {
-
         Route::post('/login', 'signIn');
-        Route::post('/logout', 'signOut');
+        Route::middleware(['VerifyToken', 'auth:api'])->post('/logout', 'signOut');
     });

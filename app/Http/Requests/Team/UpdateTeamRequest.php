@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Team;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class LoginUserRequest extends FormRequest
+class UpdateTeamRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,19 +24,19 @@ class LoginUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "email" => "required|email|min:3",
-            "password" => "required|string|min:3"
+            'name' => 'string|min:3',
+            'gols' => "integer|min:0",
+            'points' => "integer|min:0",
+
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
-            'email.required' => 'O campo email é obrigatório.',
-            'email.email' => 'O campo email deve conter um endereço de email válido.',
-            'email.unique' => 'O endereço de email já está em uso.',
-            'password.required' => 'O campo senha é obrigatório.',
-            'password.min' => 'A senha deve ter pelo menos 3 caracteres.',
+            'name.required' => 'O campo nome é obrigatório.',
+            'name.string' => 'O campo nome deve ser uma string.',
+            'name.min' => 'O campo nome deve ter pelo menos 3 caracteres.',
         ];
     }
 
