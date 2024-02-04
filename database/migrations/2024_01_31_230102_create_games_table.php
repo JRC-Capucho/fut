@@ -16,8 +16,8 @@ return new class extends Migration
             $table->date('day');
             $table->time('start');
             $table->time('end');
-            $table->unsignedInteger("home_team_scoreboard")->default(0);
-            $table->unsignedInteger("away_team_scoreboard")->default(0);
+            $table->integer("home_team_scoreboard")->default(0);
+            $table->integer("away_team_scoreboard")->default(0);
             $table->string('winner')->nullable()->default(NULL);
             $table->foreignUuid('home_team')->constrained('teams');
             $table->foreignUuid('away_team')->constrained('teams');

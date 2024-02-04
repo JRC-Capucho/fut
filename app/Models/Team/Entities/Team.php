@@ -15,6 +15,7 @@ class Team extends Model
 
     protected $fillable = [
         'name',
+        'league'
     ];
 
     protected $hidden = [

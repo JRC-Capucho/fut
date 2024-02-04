@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Team;
+namespace App\Http\Requests\Player;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class StoreTeamRequest extends FormRequest
+class UpdatePlayerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,19 +24,21 @@ class StoreTeamRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|min:3',
-            'league' => 'required|string',
+            'name' => 'string|min:3',
+            'shirt_number' => 'integer|min:1',
+            'team' => 'required|string'
         ];
     }
 
     public function messages(): array
     {
         return [
-            'name.required' => 'O campo nome é obrigatório.',
             'name.string' => 'O campo nome deve ser uma string.',
             'name.min' => 'O campo nome deve ter pelo menos 3 caracteres.',
-            'league.required' => 'O campo liga é obrigatório.',
-            'league.string' => 'O campo liga deve ser uma string.',
+            'shirt_number.integer' => 'O campo número da camisa deve ser um número inteiro.',
+            'shirt_number.min' => 'O campo número da camisa deve ser maior que 0.',
+            'team.required' => 'O campo equipe é obrigatório.',
+            'team.uuid' => 'O campo equipe deve ser um UUID válido.',
         ];
     }
 

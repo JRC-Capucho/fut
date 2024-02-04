@@ -1,11 +1,11 @@
 <?php
 
+
 namespace App\Models\Game\Services;
 
 use App\Exceptions\AppError;
 use App\Models\Game\Repositories\GameRepository;
 use App\Models\League\Repositories\LeagueRepository;
-use App\Models\Team\Repositories\TeamRepository;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 
@@ -13,40 +13,39 @@ class UpdateGameService
 {
     public function execute(array $game, string $id): JsonResponse
     {
+        $newStart = Carbon::createFromFormat("H:i", $game['start']);
+        $newEnd = Carbon::createFromFormat("H:i", $game['end']);
+
+        if ($newEnd < $newStart)
+            throw new AppError("Horario de termino menor quer o horario de inicio.", 422);
+
+        $leagueRepository = new LeagueRepository();
+
+        $league = $leagueRepository->findById($game['league']);
+
+        if (!$league)
+            throw new AppError("Liga nao existe.", 404);
+
+        if ($game['day'] < $league->start || $game['day'] > $league->end)
+            throw new AppError(" A data do jogo deve estar entre a data de início e a data de término da liga.", 422);
+
         $gameRespoitory = new GameRepository();
-        $teamRepository = new TeamRepository();
 
-        $finishGame = $gameRespoitory->findById($id);
+        $games = $gameRespoitory->findByDay($game['day']);
 
-        if (!$finishGame)
-            throw new AppError("Essa partida nao existe.", 404);
+        if ($games)
+            foreach ($games as $existingGame) {
+                $start = Carbon::createFromFormat("H:i:s", $existingGame->start);
+                $end = Carbon::createFromFormat("H:i:s", $existingGame->end);
+                if ($newStart->between($start, $end) || $newEnd->between($start, $end))
+                    throw new AppError("A nova partida se sobrepõe a uma partida existente.", 422);
+            }
 
+        $oldGame = $gameRespoitory->findById($id);
 
-        $home_team = $teamRepository->findById($finishGame->home_team);
-        $away_team = $teamRepository->findById($finishGame->away_team);
+        $newGame = $oldGame->update($game);
 
-        $finishGame->home_team_scoreboard = $game['home_team_scoreboard'];
-        $finishGame->away_team_scoreboard = $game['away_team_scoreboard'];
-
-        $home_team->gols += $game['home_team_scoreboard'];
-        $away_team->gols += $game['away_team_scoreboard'];
-
-        if ($finishGame['home_team_scoreboard'] > $game['away_team_scoreboard']) {
-            $home_team->points += 3;
-            $finishGame->winner = $finishGame->home_team;
-        } elseif ($finishGame['home_team_scoreboard'] < $game['away_team_scoreboard']) {
-            $away_team->points += 3;
-            $finishGame->winner = $finishGame->away_team;
-        } else {
-            $home_team->points += 1;
-            $away_team->points += 1;
-        }
-
-        if (!$home_team->save()) throw new AppError('Falha no registro', 500);
-
-        if (!$away_team->save()) throw new AppError('Falha no registro', 500);
-
-        if (!$finishGame->save()) throw new AppError('Falha no registro', 500);
+        if (!$newGame) throw new AppError('Falha no registro', 500);
 
         return response()->json(['message' => 'Atualizado com sucesso!']);
     }

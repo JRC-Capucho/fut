@@ -3,6 +3,7 @@
 namespace App\Models\Team\Services;
 
 use App\Exceptions\AppError;
+use App\Models\League\Repositories\LeagueRepository;
 use App\Models\Team\Repositories\TeamRepository;
 use Illuminate\Http\JsonResponse;
 
@@ -10,6 +11,12 @@ class CreateTeamService
 {
     public function execute(array $team): JsonResponse
     {
+        $leagueRepository = new LeagueRepository();
+
+        $league = $leagueRepository->findById($team['league']);
+
+        if (!$league) throw new AppError('Nao existe', 409);
+
         $teamRepository = new TeamRepository();
 
         $teamExists = $teamRepository->findByName($team['name']);

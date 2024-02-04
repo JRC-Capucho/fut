@@ -15,7 +15,8 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name');
             $table->integer('shirt_number');
-            $table->foreignUuid('team');
+            $table->integer('gols')->default(0);
+            $table->foreignUuid('team')->constrained('teams');
             $table->timestamps();
         });
     }

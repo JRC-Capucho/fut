@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Game;
 
+use App\Rules\AssociativeArrayRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -27,7 +28,8 @@ class UpdateEndGameRequest extends FormRequest
             'home_team_scoreboard' => 'required|integer',
             'away_team_scoreboard' => 'required|integer',
             'players' => 'array',
-            'player_gols' => 'array',
+            'players.*.id' => 'string|uuid',
+            'players.*.gols' => 'integer'
         ];
     }
 

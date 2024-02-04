@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->integer('points')->default(0);
             $table->integer('gols')->default(0);
+            $table->integer('matches')->default(0);
+            $table->foreignUuid('league')->constrained('leagues');
             $table->timestamps();
         });
     }

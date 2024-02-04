@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class StoreGameRequest extends FormRequest
+class UpdateGameRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,35 +24,30 @@ class StoreGameRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'day' => 'required|date',
-            'start' => "required|date_format:H:i",
-            'end' => "required|date_format:H:i",
+            'day' => 'date',
+            'start' => "date_format:H:i",
+            'end' => "date_format:H:i",
             'home_team_scoreboard' => 'integer',
             'away_team_scoreboard' => 'integer',
-            "winner" => 'string',
+            "winner" => 'string|nullable',
             'league' => 'required|string',
-            'home_team' => 'required|string',
-            'away_team' => "required|string",
+            'home_team' => 'string',
+            'away_team' => "string",
         ];
     }
 
     public function messages()
     {
         return [
-            'day.required' => 'O campo data é obrigatório.',
             'day.date' => 'O campo data deve ser uma data válida.',
-            'start.required' => 'O campo horário de início é obrigatório.',
             'start.time' => 'O campo horário de início deve ser um horário válido.',
             'start.after' => 'O horário de início deve ser posterior ao horário atual.',
-            'end.required' => 'O campo horário de término é obrigatório.',
             'end.time' => 'O campo horário de término deve ser um horário válido.',
             'end.after' => 'O horário de término deve ser após o horário de início.',
             'home_team_scoreboard.integer' => 'O placar da equipe da casa deve ser um número inteiro.',
             'away_team_scoreboard.integer' => 'O placar da equipe visitante deve ser um número inteiro.',
             'winner.string' => 'O vencedor deve ser uma string.',
-            'home_team.required' => 'O campo equipe da casa é obrigatório.',
             'home_team.string' => 'O campo equipe da casa deve ser uma string.',
-            'away_team.required' => 'O campo equipe visitante é obrigatório.',
             'away_team.string' => 'O campo equipe visitante deve ser uma string.',
             'league.required' => 'O campo liga é obrigatório.',
             'league.string' => 'O campo liga deve ser uma string.',

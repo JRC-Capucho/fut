@@ -15,8 +15,8 @@ class Player extends Model
 
     protected $fillable = [
         'name',
-        'email',
-        'password',
+        'shirt_number',
+        'team'
     ];
 
     protected $hidden = [
