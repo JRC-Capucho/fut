@@ -25,3 +25,11 @@ Route::controller(LeagueController::class)
         Route::post("/", 'store');
         Route::put('/{id}', 'update');
     });
+
+Route::controller(GameController::class)
+    ->prefix('game')
+    ->middleware(['VerifyToken'])
+    ->group(function () {
+        Route::post("/", 'store');
+        Route::patch('/{id}', 'scoreboard');
+    });

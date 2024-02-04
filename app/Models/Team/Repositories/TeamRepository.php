@@ -3,11 +3,17 @@
 namespace App\Models\Team\Repositories;
 
 use App\Models\Team\Entities\Team;
+use Illuminate\Support\Collection;
 
 class TeamRepository
 {
 
-    public function create(array $team)
+    public function all(): ?Collection
+    {
+        return Team::all();
+    }
+
+    public function create(array $team): ?Team
     {
         return Team::create($team);
     }

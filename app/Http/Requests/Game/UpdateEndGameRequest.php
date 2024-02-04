@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class StoreGameRequest extends FormRequest
+class UpdateEndGameRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,13 +24,10 @@ class StoreGameRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'day' => 'required|date',
-            'start' => "required|date_format:H:i",
-            'end' => "required|date_format:H:i",
-            'home_team_scoreboard' => 'integer',
-            'away_team_scoreboard' => 'integer',
-            "winner" => 'string|nullable',
-            'league' => 'required|string',
+            'home_team_scoreboard' => 'required|integer',
+            'away_team_scoreboard' => 'required|integer',
+            'player' => 'array',
+            'player_gols' => 'array',
             'home_team' => 'required|string',
             'away_team' => "required|string",
         ];

@@ -14,13 +14,14 @@ return new class extends Migration
         Schema::create('games', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->date('day');
-            $table->time('start', 2);
-            $table->time('end', 2);
+            $table->time('start');
+            $table->time('end');
             $table->unsignedInteger("home_team_scoreboard")->default(0);
             $table->unsignedInteger("away_team_scoreboard")->default(0);
-            // $table->foreignUuid('winner')->constrained('teams')->nullable();
+            $table->string('winner')->nullable()->default(NULL);
             $table->foreignUuid('home_team')->constrained('teams');
             $table->foreignUuid('away_team')->constrained('teams');
+            $table->foreignUuid('league')->constrained('leagues');
             $table->timestamps();
         });
     }

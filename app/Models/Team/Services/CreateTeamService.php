@@ -12,9 +12,9 @@ class CreateTeamService
     {
         $teamRepository = new TeamRepository();
 
-        $nameExists = $teamRepository->findByName($team['name']);
+        $teamExists = $teamRepository->findByName($team['name']);
 
-        if ($nameExists) throw new AppError('Nome já existe', 409);
+        if ($teamExists) throw new AppError('Time já existe', 409);
 
         $team = $teamRepository->create($team);
 

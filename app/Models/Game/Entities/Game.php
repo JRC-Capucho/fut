@@ -22,6 +22,7 @@ class Game extends Model
         "winner",
         'home_team',
         'away_team',
+        'league'
     ];
 
     protected $hidden = [
