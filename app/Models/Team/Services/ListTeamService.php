@@ -2,7 +2,6 @@
 
 namespace App\Models\Team\Services;
 
-use App\Models\Team\Entities\Team;
 use App\Models\Team\Repositories\TeamRepository;
 use Illuminate\Http\JsonResponse;
 

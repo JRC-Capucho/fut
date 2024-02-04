@@ -15,4 +15,9 @@ class UserController extends Controller
         $createUserService = new CreateUserService();
         return $createUserService->execute($request->validated());
     }
+
+    public function update()
+    {
+        # code...
+    }
 }

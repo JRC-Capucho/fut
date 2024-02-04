@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Privates;
 
 use App\Http\Requests\Team\{StoreTeamRequest, UpdateTeamRequest};
-use App\Models\Team\Services\{CreateTeamService, ListTeamService, UpdateTeamService};
+use App\Models\Team\Services\{CreateTeamService, DeleteTeamService, ListTeamService, UpdateTeamService};
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
@@ -25,5 +25,11 @@ class TeamController extends Controller
     {
         $updateTeamService = new UpdateTeamService();
         return $updateTeamService->execute($request->validated(), $id);
+    }
+
+    public function delete(string $id): JsonResponse
+    {
+        $deleteTeamService = new DeleteTeamService();
+        return $deleteTeamService->execute($id);
     }
 }

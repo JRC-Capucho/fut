@@ -9,6 +9,7 @@ use App\Http\Requests\Game\{
 };
 use App\Models\Game\Services\{
     CreateGameService,
+    DeleteGameService,
     UpdateEndGameService,
     UpdateGameService
 };
@@ -43,5 +44,11 @@ class GameController extends Controller
     {
         $updateGameService = new UpdateGameService();
         return $updateGameService->execute($request->validated(), $id);
+    }
+
+    public function delete(string $id): JsonResponse
+    {
+        $deleteGameService = new DeleteGameService();
+        return $deleteGameService->execute($id);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Privates;
 
-use App\Exceptions\AppError;
 use App\Http\Requests\League\{
     StoreLeagueRequest,
     UpdateLeagueRequest
@@ -10,6 +9,7 @@ use App\Http\Requests\League\{
 
 use App\Models\League\Services\{
     CreateLeagueService,
+    DeleteLeagueService,
     ListTableLeagueService,
     UpdateLeagueService
 };
@@ -34,5 +34,12 @@ class LeagueController extends Controller
     {
         $updateLeagueService = new UpdateLeagueService();
         return $updateLeagueService->execute($request->validated(), $id);
+    }
+
+    public function delete(string $id): JsonResponse
+    {
+        $deleteLeagueService = new DeleteLeagueService();
+
+        return $deleteLeagueService->execute($id);
     }
 }

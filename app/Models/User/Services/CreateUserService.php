@@ -1,10 +1,8 @@
 <?php
 
-
 namespace App\Models\User\Services;
 
 use App\Exceptions\AppError;
-use App\Models\User\Entities\User;
 use App\Models\User\Repositories\UserRepository;
 use Illuminate\Http\JsonResponse;
 
