@@ -7,6 +7,7 @@ use App\Http\Requests\Game\{
     UpdateEndGameRequest
 };
 use App\Models\Game\Services\CreateGameService;
+use App\Models\Game\Services\UpdateGameService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
@@ -19,8 +20,9 @@ class GameController extends Controller
         return $createGameService->execute($request->validated());
     }
 
-
-    public function EndGame(UpdateEndGameRequest $request, string $id): JsonResponse
+    public function endGame(UpdateEndGameRequest $request, string $id): JsonResponse
     {
+        $updateGameService = new UpdateGameService();
+        return $updateGameService->execute($request->validated(), $id);
     }
 }

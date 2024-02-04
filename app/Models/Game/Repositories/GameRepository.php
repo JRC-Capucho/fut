@@ -16,4 +16,9 @@ class GameRepository
     {
         return Game::where('day', $date)->get();
     }
+
+    public function findById(string $id): ?Game
+    {
+        return Game::find($id);
+    }
 }

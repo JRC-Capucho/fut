@@ -31,5 +31,6 @@ Route::controller(GameController::class)
     ->middleware(['VerifyToken'])
     ->group(function () {
         Route::post("/", 'store');
-        Route::patch('/{id}', 'scoreboard');
+        Route::patch('/{id}', 'endGame');
+        Route::put('/{id}', 'update');
     });

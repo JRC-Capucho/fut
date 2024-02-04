@@ -26,33 +26,16 @@ class UpdateEndGameRequest extends FormRequest
         return [
             'home_team_scoreboard' => 'required|integer',
             'away_team_scoreboard' => 'required|integer',
-            'player' => 'array',
+            'players' => 'array',
             'player_gols' => 'array',
-            'home_team' => 'required|string',
-            'away_team' => "required|string",
         ];
     }
 
     public function messages()
     {
         return [
-            'day.required' => 'O campo data é obrigatório.',
-            'day.date' => 'O campo data deve ser uma data válida.',
-            'start.required' => 'O campo horário de início é obrigatório.',
-            'start.time' => 'O campo horário de início deve ser um horário válido.',
-            'start.after' => 'O horário de início deve ser posterior ao horário atual.',
-            'end.required' => 'O campo horário de término é obrigatório.',
-            'end.time' => 'O campo horário de término deve ser um horário válido.',
-            'end.after' => 'O horário de término deve ser após o horário de início.',
             'home_team_scoreboard.integer' => 'O placar da equipe da casa deve ser um número inteiro.',
             'away_team_scoreboard.integer' => 'O placar da equipe visitante deve ser um número inteiro.',
-            'winner.string' => 'O vencedor deve ser uma string.',
-            'home_team.required' => 'O campo equipe da casa é obrigatório.',
-            'home_team.string' => 'O campo equipe da casa deve ser uma string.',
-            'away_team.required' => 'O campo equipe visitante é obrigatório.',
-            'away_team.string' => 'O campo equipe visitante deve ser uma string.',
-            'league.required' => 'O campo liga é obrigatório.',
-            'league.string' => 'O campo liga deve ser uma string.',
         ];
     }
 
