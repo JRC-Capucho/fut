@@ -17,11 +17,11 @@ class CreatePlayerService
 
         $team = $teamRepository->findById($player['team']);
 
-        if (!$team) throw new AppError('Time nao registro', 404);
+        if (!$team) throw new AppError("Time não registrado.", 404);
 
         $numberExists = $playerRepository->verifyShirtNumber($player);
 
-        if ($numberExists) throw new AppError('O numero da camiseta ja esta sendo usado', 409);
+        if ($numberExists) throw new AppError("O número da camiseta já está sendo usado.", 409);
 
         $player = $playerRepository->create($player);
 

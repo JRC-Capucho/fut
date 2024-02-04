@@ -22,7 +22,7 @@ Route::controller(UserController::class)
     ->prefix('user')
     ->group(function () {
         Route::post("/", 'store');
-        Route::put("/{id}", 'update');
+        Route::put("/", 'update');
     });
 
 Route::controller(AuthController::class)

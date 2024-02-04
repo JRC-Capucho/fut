@@ -14,11 +14,11 @@ class CreateLeagueService
 
         $nameExists =  $leagueRepository->findByName($league['name']);
 
-        if ($nameExists) throw new AppError('Nome ja existe', 409);
+        if ($nameExists) throw new AppError('Nome já existe.', 409);
 
         $league = $leagueRepository->create($league);
 
-        if (!$league) throw new AppError('Falha no registro', 500);
+        if (!$league) throw new AppError('Falha no registro.', 500);
 
         return response()->json(['message' => 'Cadastrado com sucesso!']);
     }

@@ -14,7 +14,7 @@ class DeleteLeagueService
 
         $league = $leagueRepository->findById($id);
 
-        if (!$league) throw new AppError('Nao existe a liga.', 500);
+        if (!$league) throw new AppError('Não existe a liga.', 404);
 
         if (!$league->delete()) throw new AppError('Falha no registro', 500);
 

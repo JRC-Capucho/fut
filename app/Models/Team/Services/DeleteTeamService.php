@@ -14,7 +14,7 @@ class DeleteTeamService
 
         $team = $teamRepository->findById($id);
 
-        if (!$team) throw new AppError('Nao existe o time.', 500);
+        if (!$team) throw new AppError("Não existe o time.", 500);
 
         if (!$team->delete()) throw new AppError('Falha no registro', 500);
 

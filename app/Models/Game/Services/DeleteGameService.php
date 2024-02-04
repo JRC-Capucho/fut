@@ -15,9 +15,9 @@ class DeleteGameService
 
         $game = $gameRepository->findById($id);
 
-        if (!$game) throw new AppError('Nao existe essa partida.', 500);
+        if (!$game) throw new AppError('Partida não encontrada.', 500);
 
-        if (!$game->delete()) throw new AppError('Falha no registro', 500);
+        if (!$game->delete()) throw new AppError('Falha ao deletar o registro.', 500);
 
         return response()->json(['message' => 'Deletado com sucesso!']);
     }

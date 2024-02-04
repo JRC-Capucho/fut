@@ -6,7 +6,6 @@ use App\Exceptions\AppError;
 use App\Models\Game\Entities\Game;
 use App\Models\Game\Repositories\GameRepository;
 use App\Models\Player\Repositories\PlayerRepository;
-use App\Models\Team\Repositories\TeamRepository;
 use Illuminate\Http\JsonResponse;
 
 class UpdateEndGameService
@@ -18,7 +17,7 @@ class UpdateEndGameService
         $finishGame = $gameRepository->findById($id);
 
         if (!$finishGame)
-            throw new AppError("Essa partida nao existe.", 404);
+            throw new AppError("Esta partida não existe.", 404);
 
         $playerRepository = new PlayerRepository();
 
@@ -36,10 +35,10 @@ class UpdateEndGameService
         }
 
         if ($homeCountGols > $game['home_team_scoreboard'])
-            throw new AppError('Divergencia de gols', 409);
+            throw new AppError('Divergência de gols.', 409);
 
         if ($awayCountGols > $game['away_team_scoreboard'])
-            throw new AppError('Divergencia de gols', 409);
+            throw new AppError('Divergencia de gols.', 409);
 
 
         $finishGame->home_team_scoreboard = $game['home_team_scoreboard'];

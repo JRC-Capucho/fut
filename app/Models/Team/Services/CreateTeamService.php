@@ -15,17 +15,17 @@ class CreateTeamService
 
         $league = $leagueRepository->findById($team['league']);
 
-        if (!$league) throw new AppError('Nao existe', 409);
+        if (!$league) throw new AppError('Time já existe.', 409);
 
         $teamRepository = new TeamRepository();
 
         $teamExists = $teamRepository->findByName($team['name']);
 
-        if ($teamExists) throw new AppError('Time já existe', 409);
+        if ($teamExists) throw new AppError('Time já existe.', 409);
 
         $team = $teamRepository->create($team);
 
-        if (!$team) throw new AppError('Falha no registro', 500);
+        if (!$team) throw new AppError('Falha no registro.', 500);
 
         return response()->json(['message' => 'Cadastrado com sucesso!']);
     }

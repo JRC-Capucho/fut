@@ -14,7 +14,7 @@ class DeletePlayerService
 
         $player = $playerRepository->findById($id);
 
-        if (!$player) throw new AppError('Jogador nao existe.', 404);
+        if (!$player) throw new AppError("Jogador não existe.", 404);
 
         if (!$player->delete())
             throw new AppError('Falha no registro', 500);

@@ -14,7 +14,7 @@ class UpdateEndGamePlayerService
 
         foreach ($game['players'] as $players) {
             $player = $playerRepository->findById($players['id']);
-            if (!$player) throw new AppError("Jogador nao existe.", 404);
+            if (!$player) throw new AppError("Jogador não existe.", 404);
             $player->gols += $players['gols'];
             $player->save();
         }

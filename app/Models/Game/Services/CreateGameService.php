@@ -17,17 +17,17 @@ class CreateGameService
         $newEnd = Carbon::createFromFormat("H:i", $game['end']);
 
         if ($newEnd < $newStart)
-            throw new AppError("Horario de termino menor quer o horario de inicio.", 422);
+            throw new AppError("Hora de término menor que a hora de início.", 422);
 
         $leagueRepository = new LeagueRepository();
 
         $league = $leagueRepository->findById($game['league']);
 
         if (!$league)
-            throw new AppError("Liga nao existe.", 404);
+            throw new AppError("Liga não existe.", 404);
 
         if ($game['day'] < $league->start || $game['day'] > $league->end)
-            throw new AppError(" A data do jogo deve estar entre a data de início e a data de término da liga.", 422);
+            throw new AppError("A data do jogo deve estar entre a data de início e a data de término da liga.", 422);
 
         $gameRespoitory = new GameRepository();
 
@@ -43,7 +43,7 @@ class CreateGameService
 
         $game = $gameRespoitory->create($game);
 
-        if (!$game) throw new AppError('Falha no registro', 500);
+        if (!$game) throw new AppError('Falha no registro.', 500);
 
         return response()->json(['message' => 'Cadastrado com sucesso!']);
     }

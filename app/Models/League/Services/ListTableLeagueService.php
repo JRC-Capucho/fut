@@ -15,7 +15,7 @@ class ListTableLeagueService
 
         $league = $leagueRepository->findById($id);
 
-        if (!$league) throw new AppError('Liga nao existe', 409);
+        if (!$league) throw new AppError('Não existe a liga.', 404);
 
         $teamRepository = new TeamRepository();
 

@@ -8,17 +8,18 @@ use Illuminate\Http\JsonResponse;
 
 class UpdateUserService
 {
-    public function execute(array $user, string $email): JsonResponse
+    public function execute(array $user): JsonResponse
     {
         $userRepository = new UserRepository();
-        $oldUser = $userRepository->findByEmail($email);
 
-        if (!$oldUser) throw new AppError("Nao existe usuario.", 404);
+        $oldUser = $userRepository->findByEmail($user['email']);
+
+        if (!$oldUser) throw new AppError("Usuário não encontrado.", 404);
 
         $newUser = $oldUser->update($user);
 
         if (!$newUser) throw new AppError('Falha no registro', 500);
 
-        return response()->json(['message' => 'Cadastrado com sucesso!']);
+        return response()->json(['message' => 'Atualizado com sucesso!']);
     }
 }

@@ -14,12 +14,12 @@ class UpdatePlayerService
 
         $oldPlayer = $playerRepository->findById($id);
 
-        if (!$oldPlayer) throw new AppError('Player nao registro', 404);
+        if (!$oldPlayer) throw new AppError("Jogador não existe.", 404);
 
         $numberExists = $playerRepository->verifyShirtNumber($player);
 
         if ($numberExists && $player['shirt_number'] != $oldPlayer->shirt_number)
-            throw new AppError('O numero da camiseta ja esta sendo usado', 409);
+            throw new AppError("O número da camiseta já está sendo usado.", 409);
 
         $newPlayer = $oldPlayer->update($player);
 

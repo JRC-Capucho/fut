@@ -14,12 +14,12 @@ class UpdateTeamService
 
         $oldTeam = $teamRepository->findById($id);
 
-        if (!$oldTeam) throw new AppError('Time nao existe.', 404);
+        if (!$oldTeam) throw new AppError("Time não existe.", 404);
 
         $teamExists = $teamRepository->findByName($team['name']);
 
         if ($teamExists && $team['name'] != $oldTeam->name)
-            throw new AppError('Liga já existe', 409);
+            throw new AppError("Liga já existe.", 409);
 
         $newTeam = $oldTeam->update($team);
 

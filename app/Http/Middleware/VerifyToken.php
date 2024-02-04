@@ -25,12 +25,12 @@ class VerifyToken extends Authenticate
         try {
             // Tenta autenticar o usuário com o token JWT
             if (!$user = JWTAuth::parseToken()->authenticate()) {
-                return response()->json(['error' => 'User not found.'], 404);
+                return response()->json(['error' => 'Usuário não encontrado.'], 404);
             }
             $request->merge(['user' => $user->id]);
         } catch (JWTException $e) {
             // O token é inválido ou expirado
-            return response()->json(['error' => 'Token invalid'], 401);
+            return response()->json(['error' => 'Token inválido.'], 401);
         }
 
         // O token é válido e o usuário foi autenticado

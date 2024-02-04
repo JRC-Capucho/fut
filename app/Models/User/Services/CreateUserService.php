@@ -14,7 +14,7 @@ class CreateUserService
 
         $emailExists = $userRespository->findByEmail($user['email']);
 
-        if ($emailExists) throw new AppError('Email ja existe', 409);
+        if ($emailExists) throw new AppError("Email já existe.", 409);
 
         $user = $userRespository->create($user);
 

@@ -14,12 +14,12 @@ class UpdateLeagueService
 
         $oldLeague = $leagueRepository->findById($id);
 
-        if (!$oldLeague) throw new AppError('Liga nao existe.', 404);
+        if (!$oldLeague) throw new AppError('Liga não existe.', 404);
 
         $leagueExist = $leagueRepository->findByName($league['name']);
 
         if ($leagueExist && $league['name'] != $oldLeague->name)
-            throw new AppError('Liga ja existe.', 409);
+            throw new AppError('Liga já existe.', 409);
 
         $newLeague = $oldLeague->update($league);
 
