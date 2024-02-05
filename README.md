@@ -25,6 +25,8 @@ Lista de softwares e ferramentas necessárias para rodar o projeto.
 
 Como iniciar o projeto após a instalação.
 
+Docker (1m)
+
 ```bash
 git clone https://github.com/JRC-Capucho/fut.git
 cd fut
